@@ -12,7 +12,6 @@ public class ReadExternalData : MonoBehaviour
     [ConditionalHide("specificFileName", true)]
     public string fileName;
 
-    
     public string GetPathToReadExternalData()
     {
         string _pathToExternalDataFile;
@@ -25,7 +24,6 @@ public class ReadExternalData : MonoBehaviour
             _pathToExternalDataFile = ReadDefaultExternalDataFile();
             return _pathToExternalDataFile;
         }
-
     }
 
 
@@ -44,6 +42,4 @@ public class ReadExternalData : MonoBehaviour
         string path = AssetDatabase.GetAssetPath(readTextFile);
         return path;
     }
-
-
 }
