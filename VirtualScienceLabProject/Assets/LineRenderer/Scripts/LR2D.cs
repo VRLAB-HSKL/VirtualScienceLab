@@ -3,20 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
 public class LR2D : MonoBehaviour
 {
-
     private LineRenderer _LR;
-    private String _labURL;
-    private String _pcURL = @"G:\U3D_HS_Workspaces\VirtualScienceLab\VirtualScienceLabProject\Assets\LineRenderer\Python\myData.csv";
-    private String _laptopURL = @"D:\HS-KL-Lab\Workspace\Examples_LineRenderer\Assets\Python\myData.csv";
+    private ReadExternalData readExternalData;
     // Start is called before the first frame update
     void Start()
     {
-        _LR = GetComponent< LineRenderer>();
+        readExternalData = GetComponent<ReadExternalData>();
+        _LR = GetComponent<LineRenderer>();
         read2D();
     }
 
@@ -26,12 +25,14 @@ public class LR2D : MonoBehaviour
         
     }
 
-    void read2D ()
+    void read2D()
     {
+        Debug.Log("External_Path_Reader: " + readExternalData.GetPathToReadExternalData());
+        string path = readExternalData.GetPathToReadExternalData();
         var firstColumn = new List<string>();
         var lastColumn = new List<string>();
 
-        using (var rd = new StreamReader(_pcURL))
+        using (var rd = new StreamReader(path))
         {
             while (!rd.EndOfStream)
             {
