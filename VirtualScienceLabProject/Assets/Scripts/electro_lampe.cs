@@ -5,9 +5,14 @@ using UnityEngine;
 
 public class electro_lampe : MonoBehaviour {
 
+    private InterpolateLamp lamp;
+
 	// Use this for initialization
 	void Start () {
-		// Counter setzen
+        // Counter setzen
+        lamp = GameObject.Find("Versuch").GetComponent<InterpolateLamp>();
+        double testdouble = lamp.getInterpolateY(99.9);
+        Debug.Log("Call V1_Lamp Class [y-Value]:" + testdouble);
         Display_Meter_5_D counti = new Display_Meter_5_D();
         counti.setDisplay(0, "Zähler_Netzteil");
         counti.setDisplay(0, "Zähler_Volt");
@@ -66,7 +71,7 @@ public class electro_lampe : MonoBehaviour {
         counti.setDisplay(Load_Publics.lampe_netzteil_count, "Zähler_Netzteil");
         counti.setDisplay(getVolt(Load_Publics.lampe_netzteil_count), "Zähler_Volt");
         counti.setDisplay(getAmpere(Load_Publics.lampe_netzteil_count), "Zähler_Ampere");
-
+        
 		// Lampe setzen
         setLight((float)Load_Publics.lampe_netzteil_count, "Glowlight");
     }
@@ -76,12 +81,14 @@ public class electro_lampe : MonoBehaviour {
     {
         x = (-0.0490743420159 * Math.Pow(x, 6)) + (1.0680459493943 * Math.Pow(x, 5)) - (9.1705441592139 * Math.Pow(x, 4)) 
             + (39.5654453080791 * Math.Pow(x, 3)) - (92.0907855870632 * Math.Pow(x, 2)) + (148.3179610169378 * x) + 0.1029496480702;
+        Debug.Log("GetVolt: " + x);
         return x;
     }
 	// Ampere interpolieren
     private double getAmpere(double x)
     {
         x = (0.0012809183618 * Math.Pow(x, 4)) - (0.019316637036 * Math.Pow(x, 3)) + (0.106348881997 * Math.Pow(x, 2)) + (0.6547898739782 * x) - 0.0044123552528;
+        Debug.Log("GetAmpere: " + x);
         return x;
     }
 
