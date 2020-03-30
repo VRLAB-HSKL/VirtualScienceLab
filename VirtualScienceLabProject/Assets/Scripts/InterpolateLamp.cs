@@ -12,9 +12,9 @@ public class InterpolateLamp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        reader = GetComponent<ReadExternalData>();
-        Debug.Log("path to file: " + reader.GetPathToReadExternalData());
-        readData();
+        //reader = GetComponent<ReadExternalData>();
+        //Debug.Log("path to file: " + reader.GetPathToReadExternalData());
+        //readData();
     }
 
     // Update is called once per frame
@@ -22,7 +22,7 @@ public class InterpolateLamp : MonoBehaviour
     {
 
     }
-
+    /**
     void readData()
     {
         Debug.Log("External_Path_Reader: " + reader.GetPathToReadExternalData());
@@ -80,4 +80,6 @@ public class InterpolateLamp : MonoBehaviour
 
         return y;
     }
+
+    **/
 }
