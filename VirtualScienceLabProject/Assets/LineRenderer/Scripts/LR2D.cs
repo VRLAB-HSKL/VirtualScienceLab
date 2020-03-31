@@ -34,10 +34,8 @@ public class LR2D : MonoBehaviour
 
     void showLine2D()
     {
-        Debug.Log("Hello");
         Vector3[] vP = dataWrapper.get3DimensionalData();
         int count = dataWrapper.getPositionsCount();
-        Debug.Log("Counter: " + count);
         _LR.positionCount = count;
         _LR.SetPositions(vP);
     }

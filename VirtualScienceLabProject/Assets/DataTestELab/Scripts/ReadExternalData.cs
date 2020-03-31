@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -8,6 +7,8 @@ public class ReadExternalData
 {
     public string[] leftSideElements { get; private set; }
     public string[] rightSideElements { get; private set; }
+
+    public int positionsCount { get; set; }
 
     public string ReadDefaultExternalDataFile()
     {
@@ -41,17 +42,8 @@ public class ReadExternalData
                 lastColumn.Add(splits[1]);
             }
         }
-
-        var firstArray = firstColumn.ToArray();
-        var lastArray = lastColumn.ToArray();
-
-        foreach (var element in firstArray)
-            Debug.Log(element);
-
-        foreach (var element in lastArray)
-            Debug.Log(element);
-
         leftSideElements = firstColumn.ToArray();
         rightSideElements = lastColumn.ToArray();
+        positionsCount = leftSideElements.Length;
     }
 }

@@ -7,7 +7,7 @@ public class DataWrapper : MonoBehaviour
 
     public bool specificFile = false;
 
-    private DataMapper2D dataMapper;
+    private DataMapper dataMapper;
     private ReadExternalData readExternalData;
 
     [ConditionalHide("specificFile", true)]
@@ -17,7 +17,7 @@ public class DataWrapper : MonoBehaviour
     // Wird beim initialisieren des Skripts aufgerufen!!!!
     private void Awake()
     {
-        dataMapper = new DataMapper2D();
+        dataMapper = new DataMapper();
         readExternalData = new ReadExternalData();
     }
 
@@ -36,8 +36,6 @@ public class DataWrapper : MonoBehaviour
     private string ReadExternalDataPath()
     {
         string path;
-        Debug.Log("Test Data: " + fileName + "FlagStatus: " + specificFile);
-
         if (specificFile)
         {
             path = readExternalData.ReadSpecificExternalDataFile(fileName); 
@@ -46,7 +44,6 @@ public class DataWrapper : MonoBehaviour
         {
             path = readExternalData.ReadDefaultExternalDataFile(); 
         }
-        Debug.Log("FileName: " + path);
         return path;
     }
 
@@ -54,7 +51,6 @@ public class DataWrapper : MonoBehaviour
     {
         string _path = ReadExternalDataPath();
         readExternalData.ReadDataTwoDimensional(_path);
-        Debug.Log(_path);
         initRawData();
     }
 
@@ -63,22 +59,26 @@ public class DataWrapper : MonoBehaviour
     {
         dataMapper.leftSideElements = readExternalData.leftSideElements;
         dataMapper.rightSideElements = readExternalData.rightSideElements;
+        dataMapper.positionsCount = readExternalData.positionsCount;
     }
     
     public Vector3[] get3DimensionalData()
-    {
-        Vector3[] vP = dataMapper.getVectorPointsFor3DLineRenderer();
-        return vP;
-    }
-
-    public Vector2[] get2DimensionalData()
-    {
-        return dataMapper.getVectorPointsFor2DLineRenderer();
+    {  
+        return dataMapper.getVectorPointsFor3DLineRenderer();
     }
 
     public int getPositionsCount()
+    {  
+        return dataMapper.positionsCount;
+    }
+
+    public float getYValueFromHashTable(float x)
     {
-        int count = dataMapper.positionsCount;
-        return count;
+        return dataMapper.getYValueFromHashTable(x);
+    }
+
+    public void fillHashTableWithInterpolateValues()
+    {
+        dataMapper.convertReadedDataToHashTable();
     }
 }

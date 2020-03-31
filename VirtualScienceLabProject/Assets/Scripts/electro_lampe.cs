@@ -11,8 +11,6 @@ public class electro_lampe : MonoBehaviour {
 	void Start () {
         // Counter setzen
         lamp = GameObject.Find("Versuch").GetComponent<InterpolateLamp>();
-        //double testdouble = lamp.getInterpolateY(99.9);
-        //Debug.Log("Call V1_Lamp Class [y-Value]:" + testdouble);
         Display_Meter_5_D counti = new Display_Meter_5_D();
         counti.setDisplay(0, "Zähler_Netzteil");
         counti.setDisplay(0, "Zähler_Volt");

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ControllScene : MonoBehaviour
 {
-
+    private DataWrapper dataWrapper;
     public Text leftScreen;
     public Text rightScreen;
     public Text middleScreen;
@@ -14,10 +14,11 @@ public class ControllScene : MonoBehaviour
     private float leftCounter;
     private float rightCounter;
 
-
     // Start is called before the first frame update
     void Start()
     {
+        dataWrapper.ReadExternalDataFile();
+        dataWrapper.fillHashTableWithInterpolateValues();
         seqCounter = 0f;
         leftCounter = 0f;
         rightCounter = 0f;
@@ -31,6 +32,7 @@ public class ControllScene : MonoBehaviour
 
     private void Awake()
     {
+        dataWrapper = GameObject.Find("Room").GetComponent<DataWrapper>();
         ViveInput.AddListenerEx(HandRole.LeftHand, ControllerButton.Trigger, ButtonEventType.Click, reduceCounter);
         ViveInput.AddListenerEx(HandRole.RightHand, ControllerButton.Trigger, ButtonEventType.Click, increaseCounter);
     }
@@ -46,8 +48,8 @@ public class ControllScene : MonoBehaviour
         Debug.Log("LeftHand_Trigger_Clicked");
         seqCounter -= 0.5f;
         middleScreen.text = "Seq_Counter: " + seqCounter;
-        leftCounter -= seqCounter - 1;
-        rightCounter += seqCounter + 1;
+        leftCounter = dataWrapper.getYValueFromHashTable(seqCounter);
+        rightCounter = dataWrapper.getYValueFromHashTable(seqCounter);
         leftScreen.text = "leftCounter: " + leftCounter;
         rightScreen.text = "rightCounter: " + rightCounter;
     }
@@ -57,9 +59,10 @@ public class ControllScene : MonoBehaviour
         Debug.Log("RightHand_Trigger_Clicked");
         seqCounter += 0.5f;
         middleScreen.text = "Seq_Counter: " + seqCounter;
-        leftCounter -= seqCounter - 1;
-        rightCounter += seqCounter + 1;
+        leftCounter = dataWrapper.getYValueFromHashTable(seqCounter);
+        rightCounter = dataWrapper.getYValueFromHashTable(seqCounter);
         leftScreen.text = "leftCounter: " + leftCounter;
         rightScreen.text = "rightCounter: " + rightCounter;
+        Debug.Log(dataWrapper.getYValueFromHashTable(4.2f));
     }
 }
